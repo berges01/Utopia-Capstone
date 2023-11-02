@@ -382,4 +382,8 @@ span {
         font-size: 14px;
     }
 
+    h1, h2, h3 {
+        margin: 10px 0; /* 10px top and bottom margin, 0 left and right margin */
+    }
+
 }

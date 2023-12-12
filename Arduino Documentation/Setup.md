@@ -45,7 +45,7 @@ http://www.cqrobot.wiki/index.php/10.525GHz_Doppler_Effect_Microwave_Motion_Sens
 
 Ensure that the voltage switch is set to 3.3V instead of 5V
 
-![Alt text](image-7.png)
+![Alt text](voltage-switch.png)
 
 Connect the Microwave sensor by connecting the green wire to the 5 pin on the CubeCell board. 
 
@@ -57,7 +57,7 @@ For information on pins on the CubeCell board refer to this link:
 https://github.com/HelTecAutomation/CubeCell-Arduino/blob/master/PinoutDiagram/HTCC-AB01.pdf
 
 ### Solar Connections
-![Alt text](image-4.png)
+![Alt text](solar-connections.png)
 
 Connect the red solar panel wire to the VS pin on the CubeCell board
 
@@ -69,16 +69,16 @@ Cubecell solar documentation: https://docs.heltec.org/en/node/asr650x/htcc_ab02/
 
 Connect the battery to the battery connector on the CubeCell board.
 
-![Alt text](image-5.png)
+![Alt text](battery-connector.png)
 
 
 ### Reset Button
 Reset the board by pressing the RST button on the CubeCell board.
 
-![Alt text](image-6.png)
+![Alt text](reset-button.png)
 
 
 ## Final Product
 Your device should look something like this when it has been properly assembled
 
-![Alt text](image-8.png)
+![Alt text](final-image.png)

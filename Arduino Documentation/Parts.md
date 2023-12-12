@@ -8,7 +8,7 @@ Amazon link: https://www.amazon.com/MakerFocus-LoRaWAN-Development-Consumption-I
 
 ## Microwave Sensor
 
-![Alt text](image-10.png)
+![Alt text](image-13.png)
 
 Amazon link: https://www.amazon.com/CQRobot-10-525GHz-Microwave-Compatible-Measurement/dp/B089NKGWQQ/ref=sr_1_1?keywords=ocean%2Bmicrowave%2Bsensor&sr=8-1&th=1
 

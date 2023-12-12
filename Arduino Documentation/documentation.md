@@ -26,6 +26,7 @@ Then, Click Tools > Board > Boards Manager, search 'Heltec CubeCell' in the new 
 Copy the code from this repo called test-environment.ino and paste its contents into your working file.
 
 Select your board in the drop down menu
+
 ![Alt text](image-2.png)
 
 Then click the arrow pointing to the right to upload the code to the device.
@@ -43,6 +44,7 @@ Additional data on the microwave sensor can be found here:
 http://www.cqrobot.wiki/index.php/10.525GHz_Doppler_Effect_Microwave_Motion_Sensor_SKU:_CQRSENWB01
 
 Ensure that the voltage switch is set to 3.3V instead of 5V
+
 ![Alt text](image-7.png)
 
 Connect the Microwave sensor by connecting the green wire to the 5 pin on the CubeCell board. 

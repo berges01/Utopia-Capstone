@@ -134,6 +134,11 @@ ul li a:hover {
     border: 5px solid #fff;
 }
 
+#map {
+    height: 400px;
+    width: 100%;
+}
+
 #headline {
     text-shadow: 0 0 8px rgb(148, 148, 148), 0 0 3px rgb(126, 126, 126);
     font-size: 68px;

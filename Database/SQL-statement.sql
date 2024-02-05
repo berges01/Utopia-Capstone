@@ -2,14 +2,16 @@ CREATE DATABASE IF NOT EXISTS HistoricalTrailData;
 
 USE HistoricalTrailData;
 
-CREATE TABLE IF NOT EXISTS HikingTrail (
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'erik1999';
+
+CREATE TABLE IF NOT EXISTS TrailUserData (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `current_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     trail_name VARCHAR(100),
     people_count INT
 );
 
-INSERT INTO HikingTrail (`current_time`, trail_name, people_count) VALUES
+INSERT INTO TrailUserData (`current_time`, trail_name, people_count) VALUES
     ('2024-02-04 08:00:00', 'Murdock Trail', 5),
     ('2024-02-04 08:00:15', 'Murdock Trail', 7),
     ('2024-02-04 08:00:30', 'Murdock Trail', 9),

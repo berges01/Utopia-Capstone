@@ -32,3 +32,30 @@ apiRouter.get('/count', async (req, res) => {
 const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+const mysql = require('mysql');
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'erik1999',
+    database: 'HistoricalTrailData'
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.error('Error connecting to MySQL database:', err);
+    } else {
+        console.log('Connected to MySQL database');
+    }
+});
+
+app.get('/getTableData', (req, res) => {
+    connection.query('SELECT * FROM TrailUserData', (error, results) => {
+        if (error) {
+            res.status(500).json({ error: 'Error retrieving data from database' });
+        } else {
+            res.json(results);
+        }
+    });
+});

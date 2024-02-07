@@ -1,0 +1,8 @@
+Run these commands:
+
+cd /home/cbarto22/Utopia-Capstone
+git pull
+cp -r /home/cbarto22/Utopia-Capstone/Website/public /var/www/html
+systemctl restart caddy
+
+Caddy config /etc/caddy/Caddyfile

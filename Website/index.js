@@ -51,7 +51,7 @@ connection.connect((err) => {
 });
 
 app.get('/getTableData', (req, res) => {
-    connection.query('SELECT * FROM TrailUserData', (error, results) => {
+    connection.query('SELECT * FROM TrailUserData ORDER BY id DESC LIMIT 10;', (error, results) => {
         if (error) {
             res.status(500).json({ error: 'Error retrieving data from database' });
         } else {

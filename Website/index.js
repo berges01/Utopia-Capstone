@@ -59,3 +59,7 @@ app.get('/getTableData', (req, res) => {
         }
     });
 });
+
+app.get('/', function (req, res) {
+    res.render('index', {});
+  });

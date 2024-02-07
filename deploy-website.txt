@@ -1,9 +1,9 @@
 Run these commands:
 
 cd /home/cbarto22/Utopia-Capstone
-git pull
-cp -r /home/cbarto22/Utopia-Capstone/Website/public /var/www/html
-systemctl restart caddy
+git reset --hard origin/main
+sudo cp -r /home/cbarto22/Utopia-Capstone/Website/public /var/www/html
+sudo systemctl restart caddy
 node /home/cbarto22/Utopia-Capstone/Website/index.js
 
 

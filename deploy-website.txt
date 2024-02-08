@@ -4,7 +4,10 @@ cd /home/cbarto22/Utopia-Capstone
 git reset --hard origin/main
 sudo cp -r /home/cbarto22/Utopia-Capstone/Website/public /var/www/html
 sudo systemctl restart caddy
-node /home/cbarto22/Utopia-Capstone/Website/index.js
+pm2 2 start (which is effectively this command -> node /home/cbarto22/Utopia-Capstone/Website/index.js)
+
+
+
 
 
 Caddy config /etc/caddy/Caddyfile

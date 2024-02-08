@@ -63,3 +63,8 @@ app.get('/getTableData', (req, res) => {
 app.get('/', function (req, res) {
     res.render('index', {});
   });
+
+// Define route for the '/WebsiteData.html' URL
+app.get('/WebsiteData.html', function(req, res) {
+    res.sendFile(path.join(__dirname, 'WebsiteData.html'));
+});

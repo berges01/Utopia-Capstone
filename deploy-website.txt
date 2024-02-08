@@ -1,17 +1,13 @@
 Run these commands:
 
-pm2 2 stop
-pm2 2 save
 cd /home/cbarto22/Utopia-Capstone
 git reset --hard origin/main
-sudo cp -r /home/cbarto22/Utopia-Capstone/Website/public /var/www/html
-sudo systemctl restart caddy
-pm2 2 start (which is effectively this command -> node /home/cbarto22/Utopia-Capstone/Website/index.js)
+node /home/cbarto22/Utopia-Capstone/Website/index.js
 
-
+pm2 2 start to run by itself
 
 
 
 Caddy config /etc/caddy/Caddyfile
 
-http://10.35.126.98:3000/index.html for test site
+http://10.35.126.98 for test site

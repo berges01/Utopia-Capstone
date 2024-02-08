@@ -11,22 +11,34 @@ app.use(express.json());
 // Serve up the applications static content
 app.use(express.static('public'));
 
-// Router for service endpoints
-var apiRouter = express.Router();
-app.use(`/api`, apiRouter);
-count = {
-    number: 0,
-};
-// CreateAuth token for a new user
-apiRouter.post('/chirpstack', async (req, res) => {
-    buffer = Buffer.from(req.body.data, "base64")
-    count.number = buffer.readUInt8(0)
+// // Router for service endpoints
+// var apiRouter = express.Router();
+// app.use(`/api`, apiRouter);
+// count = {
+//     number: 0,
+// };
+// // CreateAuth token for a new user
+// apiRouter.post('/chirpstack', async (req, res) => {
+//     buffer = Buffer.from(req.body.data, "base64")
+//     count.number = buffer.readUInt8(0)
 
-});
+// });
 
-apiRouter.get('/count', async (req, res) => {
+// apiRouter.get('/count', async (req, res) => {
 
-    res.send(count);
+//     res.send(count);
+// });
+
+// Define a route to handle POST requests from Chirpstack
+app.post('/api/chirpstack', function(req, res) {
+    // Extract payload data from the request body
+    const payload = req.body;
+
+    // Process the payload data as needed
+    console.log('Received payload from Chirpstack:', payload);
+
+    // Send a response (optional)
+    res.status(200).send('Payload received successfully');
 });
 
 const httpService = app.listen(port, () => {

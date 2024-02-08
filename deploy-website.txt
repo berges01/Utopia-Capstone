@@ -1,5 +1,7 @@
 Run these commands:
 
+pm2 2 stop
+pm2 2 save
 cd /home/cbarto22/Utopia-Capstone
 git reset --hard origin/main
 sudo cp -r /home/cbarto22/Utopia-Capstone/Website/public /var/www/html

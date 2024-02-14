@@ -44,9 +44,9 @@ apiRouter.get('/historical/data', async (req, res) => {
 })
 
 apiRouter.get('/count', async (req, res) => {
-
     res.send(count);
 });
+
 
 const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);

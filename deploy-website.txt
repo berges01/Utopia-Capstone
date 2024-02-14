@@ -1,0 +1,13 @@
+Run these commands:
+
+cd /home/cbarto22/Utopia-Capstone
+git reset --hard origin/main
+node /home/cbarto22/Utopia-Capstone/Website/index.js
+
+pm2 2 start to run by itself
+
+
+
+Caddy config /etc/caddy/Caddyfile
+
+http://10.35.126.98 for test site

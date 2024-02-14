@@ -9,7 +9,7 @@ async function initMap() {
 
   // Create the map on index.html
   map = new Map(document.getElementById("map"), {
-    zoom: 10,
+    zoom: 15,
     center: oremHut,
     mapId: "Orem UTOPIA Hut",
     mapTypeId: "satellite"

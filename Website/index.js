@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const db = require('./database.js')
 
 
 // The service port may be set on the command line
@@ -17,12 +18,30 @@ app.use(`/api`, apiRouter);
 count = {
     number: 0,
 };
-// CreateAuth token for a new user
 apiRouter.post('/chirpstack', async (req, res) => {
     buffer = Buffer.from(req.body.data, "base64")
     count.number = buffer.readUInt8(0)
 
 });
+
+apiRouter.post('/db', async (req, res) => {
+    const time = req.body.time
+    const id = req.body.deviceInfo.devEui
+    const count = req.body.data
+    db.insertNum(id, count, time)
+})
+apiRouter.get('/historical/data', async (req, res) => {
+    // Get db id from front-end to send here 
+    try {
+    const database = await db.getDb('TrailUserData')
+    if (database) {
+        res.status(200)
+        res.send(database)
+    }
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 apiRouter.get('/count', async (req, res) => {
 

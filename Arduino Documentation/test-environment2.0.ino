@@ -14,9 +14,11 @@
 #define Sensor GPIO5 // Sensor Input Pin
 int sensorval = 0;  // Sensor Value
 static uint8_t human_count = 0;
+static uint8_t prev_human_count = 0;
+static uint8_t send_human_count = 0;
 unsigned long previousMillis = 0;
 const long interval = 300000;  
-const long sleepInterval = 1200000;
+const long sleepInterval = 7200000;
 
 
 /*
@@ -29,7 +31,7 @@ const long sleepInterval = 1200000;
  */
 
 //Set these OTAA parameters to match your app/node in TTN
-static uint8_t devEui[] = { 0x22, 0x32, 0x33, 0x00, 0x00, 0x88, 0x88, 0x09 };
+// static uint8_t devEui[] = { 0x22, 0x32, 0x33, 0x00, 0x00, 0x88, 0x88, 0x09 }; MAKE SURE YOU MAKE THIS UNIQUE FOR YOUR DEVICE
 static uint8_t appEui[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 static uint8_t appKey[] = { 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x88, 0x66, 0x01 };
 
@@ -84,41 +86,52 @@ void setup() {
 void loop()
 {
   delay(100);
-  // Send data every 5 mins
   unsigned long currentMillis = millis(); 
   sensorval = digitalRead(Sensor);
   if (sensorval == 0) {
     Serial.println("Presence detected");
     human_count++;
     Serial.println(human_count);
-    if (currentMillis - previousMillis >= interval) {
-      previousMillis = currentMillis;
-      //Now send the data. The parameters are "data size, data pointer, port, request ack"
-      Serial.printf("\nSending packet with human count=%d\n", human_count);
-      if (LoRaWAN.send(1, &human_count, 1, true)) {
-        Serial.println("Send OK");
-      } else {
-        Serial.println("Send FAILED");
-      }
-    }
-    // If the count is greater than 250 send the data and reset it to ensure it doesn't spike above 256
-    if (human_count >= 250) {
-      human_count = 0;
-      Serial.printf("\nSending packet with human count=%d\n", human_count);
-      if (LoRaWAN.send(1, &human_count, 1, true)) {
-        Serial.println("Send OK");
-        human_count = 0;
-      } else {
-        Serial.println("Send FAILED");
-      }
-     }
   }
   else {
     Serial.println("No presence detected");
-    // If no presence is detected for 20 minutes sleep for 30 mins
+    // If no presence is detected for 2 hours, sleep for 30 mins
     if (currentMillis - previousMillis >= sleepInterval) {
       previousMillis = currentMillis;
       lowPowerSleep(1800000);
+    }
+  }
+  // If the count is greater than 250, send the data and reset it to ensure it doesn't spike above 256
+  if (human_count >= 250) {
+    send_human_count = human_count - prev_human_count; // difference between values to send
+    prev_human_count = human_count; // value to be stored for next time
+    if (send_human_count < 0) {
+      send_human_count = send_human_count * -1;
+    }
+
+    Serial.printf("\nSending packet with human count=%d\n", send_human_count);
+    if (LoRaWAN.send(1, &send_human_count, 1, true)) {
+      Serial.println("Send OK");
+      human_count = 0;
+    } else {
+      Serial.println("Send FAILED");
+    }
+  }
+
+  // Send data every 5 minutes
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+    send_human_count = human_count - prev_human_count; // difference between values to send
+    prev_human_count = human_count; // value to be stored for next time
+    if (send_human_count < 0) {
+      send_human_count = send_human_count * -1;
+    }
+
+    Serial.printf("\nSending packet with human count=%d\n", send_human_count);
+    if (LoRaWAN.send(1, &send_human_count, 1, true)) {
+      Serial.println("Send OK");
+    } else {
+      Serial.println("Send FAILED");
     }
   }
 }

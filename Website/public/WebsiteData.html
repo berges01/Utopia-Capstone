@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trail Tallies</title>
-    <link rel="stylesheet" href="WebsiteData.css">
     <link rel="stylesheet" href="Page2.css">
 </head>
 <body>
@@ -36,44 +35,6 @@
             <img src="images/utopia-fiber-image.png" alt="" id="image2">
             
         </div>
-
-        <h1>Table Contents</h1>
-        <div id="tableData"></div>
-    
-        <script>
-            // Fetch data from the server
-            fetch('/getTableData')
-                .then(response => response.json())
-                .then(data => {
-                    // Display the data
-                    const tableData = document.getElementById('tableData');
-                    const table = document.createElement('table');
-                    table.innerHTML = `
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Current Time</th>
-                                <th>Trail Name</th>
-                                <th>People Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${data.map(row => `
-                                <tr>
-                                    <td>${row.id}</td>
-                                    <td>${row.current_time}</td>
-                                    <td>${row.trail_name}</td>
-                                    <td>${row.people_count}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    `;
-                    tableData.appendChild(table);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        </script>
             
     </section>
 

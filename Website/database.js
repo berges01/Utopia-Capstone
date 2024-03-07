@@ -13,15 +13,15 @@ const connection = mysql.createConnection({
     database: 'HistoricalTrailData'
 })
 
-function insertNum(sensorId, count) {
+async function insertNum(sensorId, count) {
     buffer = Buffer.from(count, "base64")
     decimalCount = buffer.readUInt8(0)
-    connection.query('INSERT INTO TrailUserData (trail_name, people_count) VALUES (?, ?)', [sensorId, decimalCount], (error, results, fields) => {
+    const result = await connection.query('INSERT INTO TrailUserData (trail_name, people_count) VALUES (?, ?)', [sensorId, decimalCount], (error, results, fields) => {
         if (error) {
             console.error('Error executing query: ' + error.stack)
         }
-        console.log('Query results: ', results)
     })
+    return(result)
 }
 
 async function getDb(id) {

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const db = require('./database.js')
+const heatpoint = require('./heatpoint.js')
 
 
 // The service port may be set on the command line
@@ -16,11 +17,34 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+uplink = {
+    body: {
+        time: '2024-02-29T23:32:12.313+00:00',
+        deviceInfo: {
+          devEui: '2232330000888809',
+        },
+        data: 'AA=='
+    }
+};
+
 apiRouter.post('/db', async (req, res) => {
+    uplink = req
+    console.log(uplink)
     const time = req.body.time
     const id = req.body.deviceInfo.devEui
     const count = req.body.data
-    db.insertNum(id, count, time)
+    try {
+        let result = await db.insertNum(id, count, time)
+        if (result) {
+            res.status(200)
+            res.send('Inserted Successfully')
+        }
+    } catch (error) {
+        res.status(505)
+        console.log(error)
+    }
+
+    heatpoint.create(uplink);
 })
 apiRouter.get('/historical/data', async (req, res) => {
     try {
@@ -34,7 +58,18 @@ apiRouter.get('/historical/data', async (req, res) => {
         console.log(error)
     }
 })
-
+apiRouter.get('/latest/count', async (req, res) => {
+    try {
+        const heatpoints = await heatpoint.get()
+        if (heatpoints) {
+            res.status(200)
+            res.send(heatpoints)
+        }
+    } catch (error) {
+        res.status(505)
+        console.log(error)
+    }
+})
 const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

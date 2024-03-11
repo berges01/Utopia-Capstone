@@ -3,12 +3,26 @@ const app = express();
 const db = require('./database.js')
 const heatpoint = require('./heatpoint.js')
 
+const restrictIP = (req, res, next) => {
+    const allowedIP = process.env.IP
+    let clientIP = req.ip
+    if (clientIP.startsWith('::ffff:')) {
+        clientIP = clientIP.slice(7)
+    }
+    if (req.method === 'POST' && clientIP !== allowedIP) {
+        return res.status(403).send('Forbidden')
+    }
+    next()
+}
 
 // The service port may be set on the command line
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
+
+// Restrict IP
+app.use(restrictIP);
 
 // Serve up the applications static content
 app.use(express.static('public'));
@@ -28,11 +42,19 @@ uplink = {
 };
 
 apiRouter.post('/db', async (req, res) => {
-    uplink = req
-    console.log(uplink)
-    const time = req.body.time
-    const id = req.body.deviceInfo.devEui
-    const count = req.body.data
+    let time
+    let id
+    let count
+    try {
+        uplink = req
+        if (req.body.time && req.body.deviceInfo.devEui && req.body.data) {
+            time = req.body.time
+            id = req.body.deviceInfo.devEui
+            count = req.body.data
+        }
+    } catch (error) {
+        console.log(error)
+    }
     try {
         let result = await db.insertNum(id, count, time)
         if (result) {

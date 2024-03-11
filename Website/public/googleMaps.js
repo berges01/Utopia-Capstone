@@ -25,7 +25,6 @@ async function heatPoints(map) {
   const heatPoints = await heatPointsRequest.json();
 
   // Loop through the data to create heatpoints with google maps
-
   var heatMapData = []
   for (let i = 0; i < heatPoints.length; i++) {
     let point = {
@@ -34,15 +33,6 @@ async function heatPoints(map) {
     heatMapData.push(point)
     point = {}
   }
-  console.log(heatMapData)
-    /* Data points defined as a mixture of WeightedLocation and LatLng objects */
-// var heatMapData = [
-//     { location: new google.maps.LatLng(mS1.lat, mS1.lng), weight: 1 },
-//     { location: new google.maps.LatLng(mS2.lat, mS2.lng), weight: 1 },
-//     { location: new google.maps.LatLng(mS3.lat, mS3.lng), weight: 1 },
-//     { location: new google.maps.LatLng(mS4.lat, mS4.lng), weight: 2 }
-//   ];
-  
   var heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatMapData
   });

@@ -1,6 +1,7 @@
 let sensor_locations = [
     {devEui: "2232330000888809", location: "CTB-45A", lat: process.env.NINELAT, lng: process.env.NINELNG },
-    {devEui: "2232330000888802", location: "Brigham Square", lat: process.env.THREELAT, lng: process.env.THREELAT }
+    {devEui: "2232330000888802", location: "Brigham Square", lat: process.env.TWOLAT, lng: process.env.TWOLNG },
+    {devEui: "2232330000888810", location: "Test Device", lat: 40, lng: -111 }
 ];
 
 

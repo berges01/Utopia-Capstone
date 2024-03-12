@@ -9,24 +9,22 @@ async function loadDB() {
 }
 
 function displayDB(historical_database) {
-    const tableElement = document.querySelector('#trail-data')
+    const tableElement = document.querySelector('tbody')
 
     for (const [i, entry] of historical_database.entries()) {
         const locationEl = document.createElement('td')
         const timeEl = document.createElement('td')
         const countEl = document.createElement('td')
-        const sensorIDEl = document.createElement('td')
-
+        
         locationEl.textContent = entry.device_location
         timeEl.textContent = new Date(entry.current_time).toLocaleString()
         countEl.textContent = entry.people_count
-        sensorIDEl.textContent = entry.trail_name
-
+        
         const rowEl = document.createElement('tr')
         rowEl.appendChild(locationEl)
         rowEl.appendChild(timeEl)
         rowEl.appendChild(countEl)
-        rowEl.appendChild(sensorIDEl)
+        rowEl.setAttribute('class', 'table-light')
 
         tableElement.appendChild(rowEl)
     }

@@ -58,10 +58,10 @@ class heatpoint {
     }
 }
 
-function create(uplink) {
-    deleteHeatPoint(uplink.body.deviceInfo.devEui)
-    const newHeatpoint = new heatpoint(uplink.body.deviceInfo.devEui, uplink.body.time);
-    buffer = Buffer.from(uplink.body.data, "base64")
+function create(id, count, time) {
+    deleteHeatPoint(id)
+    const newHeatpoint = new heatpoint(id, time);
+    buffer = Buffer.from(count, "base64")
     decimalCount = buffer.readUInt8(0)
     newHeatpoint.setWeight(decimalCount)
     newHeatpoint.setLatandLng()

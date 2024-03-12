@@ -10,7 +10,7 @@ async function initMap() {
 
   // Create the map on index.html
   map = new Map(document.getElementById("map"), {
-    zoom: 16,
+    zoom: 9,
     center: ctb,
     mapId: "Orem UTOPIA Hut",
     mapTypeId: "satellite"
@@ -37,4 +37,5 @@ async function heatPoints(map) {
     data: heatMapData
   });
   heatmap.setMap(map);
+  
 }

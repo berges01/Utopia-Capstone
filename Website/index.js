@@ -4,12 +4,17 @@ const db = require('./database.js')
 const heatpoint = require('./heatpoint.js')
 
 const restrictIP = (req, res, next) => {
-    const allowedIP = process.env.IP
+    const allowedIPone = process.env.IPONE
+    const allowedIPtwo = process.env.IPTWO
     let clientIP = req.ip
+    console.log(clientIP)
     if (clientIP.startsWith('::ffff:')) {
         clientIP = clientIP.slice(7)
     }
-    if (req.method === 'POST' && clientIP !== allowedIP) {
+    console.log(clientIP)
+    if (req.method === 'POST' && clientIP !== allowedIPtwo && clientIP !== allowedIPone) {
+        console.log(allowedIPone)
+	console.log(allowedIPtwo)
         return res.status(403).send('Forbidden')
     }
     next()
@@ -66,7 +71,7 @@ apiRouter.post('/db', async (req, res) => {
         console.log(error)
     }
 
-    heatpoint.create(uplink);
+    heatpoint.create(id, count, time);
 })
 apiRouter.get('/historical/data', async (req, res) => {
     try {

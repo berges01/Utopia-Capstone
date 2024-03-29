@@ -1,7 +1,9 @@
 let sensor_locations = [
-    {devEui: "2232330000888809", location: "CTB-45A", lat: process.env.NINELAT, lng: process.env.NINELNG },
-    {devEui: "2232330000888802", location: "Brigham Square", lat: process.env.TWOLAT, lng: process.env.TWOLNG },
-    {devEui: "2232330000888810", location: "Test Device", lat: 40, lng: -111 }
+    {devEui: "2232330000888809", location: "Murdock Sensor 2", lat: process.env.NINELAT, lng: process.env.NINELNG },
+    {devEui: "2232330000888802", location: "Murdock Sensor 3", lat: process.env.TWOLAT, lng: process.env.TWOLNG },
+    {devEui: "2232330000888805", location: "Murdock Sensor 1", lat: process.env.MS1LAT, lng: process.env.MS1LNG },
+    {devEui: "2232330000888806", location: "Murdock Sensor 5", lat: process.env.MS5LAT, lng: process.env.MS5LNG },
+    {devEui: "2232330000888810", location: "Murdock Sensor 4", lat: process.env.MS4LAT, lng: process.env.MS4LNG }
 ];
 
 

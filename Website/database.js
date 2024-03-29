@@ -41,7 +41,141 @@ async function getDb(id) {
     }
 }
 
+async function getDataDay(day) {
+    switch(day) {
+        case "Sunday":
+            const sunday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 1;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return sunday
+        case "Monday":
+            const monday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 2;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return monday
+        case "Tuesday":
+            const tuesday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 3;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return tuesday 
+        case "Wednesday":
+            const wednesday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 4;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return wednesday
+        case "Thursday":
+            const thursday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 5;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return thursday   
+        case "Friday":
+            const friday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 6;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return friday
+        case "Saturday":
+            const saturday = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 7;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return saturday 
+        default:
+            const database = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return database    
+    }
+}
+
+async function getDataLocation(location) {
+    switch(location) {
+        case "CTB":
+            const CTB = '\"CTB 45A\"'
+            const ctb = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE device_location = ${CTB}`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return ctb
+        case "Murdock":
+            const murdock = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE device_location = Murdock;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return murdock
+        default:
+            const database = await new Promise((resolve, reject) => {
+                connection.query(`SELECT * FROM TrailUserData;`, (error, results, fields) => {
+                    if (error) {
+                        reject(error)
+                        return
+                    }
+                    resolve(results)
+                })
+            })
+            return database 
+    }
+}
+
 module.exports = {
     insertNum,
     getDb,
+    getDataDay,
+    getDataLocation,
 }

@@ -2,19 +2,17 @@ const express = require('express');
 const app = express();
 const db = require('./database.js')
 const heatpoint = require('./heatpoint.js')
+const { URL } = require('url');
+const querystring = require('querystring');
 
 const restrictIP = (req, res, next) => {
     const allowedIPone = process.env.IPONE
     const allowedIPtwo = process.env.IPTWO
     let clientIP = req.ip
-    console.log(clientIP)
     if (clientIP.startsWith('::ffff:')) {
         clientIP = clientIP.slice(7)
     }
-    console.log(clientIP)
     if (req.method === 'POST' && clientIP !== allowedIPtwo && clientIP !== allowedIPone) {
-        console.log(allowedIPone)
-	console.log(allowedIPtwo)
         return res.status(403).send('Forbidden')
     }
     next()
@@ -95,6 +93,35 @@ apiRouter.get('/latest/count', async (req, res) => {
     } catch (error) {
         res.status(505)
         console.log(error)
+    }
+})
+apiRouter.get('/filter/location', async (req, res) => {
+    const req_url = new URL(req.url, `http://${req.headers.host}`)
+    const param = querystring.parse(req_url.searchParams.toString())
+    const location = param.location
+    const data_based_location = await db.getDataLocation(location)
+    if (data_based_location) {
+        res.status(200)
+        res.send(data_based_location)
+    }
+    else {
+        res.status(505)
+        res.send("Something went wrong with data retrieval")
+    }
+})
+apiRouter.get('/filter/day', async (req, res) => {
+    const req_url = new URL(req.url, `http://${req.headers.host}`)
+    const param = querystring.parse(req_url.searchParams.toString())
+    const day = param.day
+    const data_based_day = await db.getDataDay(day)
+    console.log(data_based_day)
+    if (data_based_day) {
+        res.status(200)
+        res.send(data_based_day)
+    }
+    else {
+        res.status(505)
+        console.log('Something went wrong with data retrieval')
     }
 })
 const httpService = app.listen(port, () => {

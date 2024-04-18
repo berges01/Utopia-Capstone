@@ -62,4 +62,4 @@ Fill out the above variables in the code by changing the values in the tools men
 
 NOTE: After you have setup chirpstack ensure that your device is communicating on the same channel as you gateway or you may only have one way traffic. 
 
-NOTE: If using the same device model in multiple locations, the devEUI, will be the same, the appKey should be unique when setting it up in Arduino and the Chirpstack server. 
+NOTE: If using the same device model in multiple locations, the devEUI must be unique, and the APPkey should be the same when setting it up in Arduino and the Chirpstack server. 

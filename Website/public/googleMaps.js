@@ -2,17 +2,17 @@
 let map;
 
 async function initMap() {
-  const oremHut = { lat: 40.329620, lng: -111.691117 };
-  const ctb = { lat: 40.247778, lng: -111.646678 };
+  const murdock = { lat: 40.329620, lng: -111.691117 };
+  const byu = { lat: 40.247778, lng: -111.646678 };
   // Request needed libraries.
   //@ts-ignore
   const { Map } = await google.maps.importLibrary("maps");
 
   // Create the map on index.html
   map = new Map(document.getElementById("map"), {
-    zoom: 9,
-    center: ctb,
-    mapId: "Orem UTOPIA Hut",
+    zoom: 15,
+    center: murdock,
+    mapId: "murdock",
     mapTypeId: "satellite"
   });
   heatPoints(map);
@@ -23,6 +23,7 @@ async function heatPoints(map) {
   // Get Heatpoints
   const heatPointsRequest = await fetch('/api/latest/count')
   const heatPoints = await heatPointsRequest.json();
+  console.log(heatPoints)
 
   // Loop through the data to create heatpoints with google maps
   var heatMapData = []

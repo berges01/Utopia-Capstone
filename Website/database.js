@@ -13,10 +13,11 @@ const connection = mysql.createConnection({
     database: 'HistoricalTrailData'
 })
 
-async function insertNum(sensorId, count) {
+async function insertNum(sensorId, count, date, time) {
+    time = date.substring(11,19)
     buffer = Buffer.from(count, "base64")
     decimalCount = buffer.readUInt8(0)
-    const result = await connection.query('INSERT INTO TrailUserData (trail_name, people_count) VALUES (?, ?)', [sensorId, decimalCount], (error, results, fields) => {
+    const result = await connection.query('INSERT INTO TrailUserData (trail_name, people_count, date, time) VALUES (?, ?, ?, ?)', [sensorId, decimalCount, date, time], (error, results, fields) => {
         if (error) {
             console.error('Error executing query: ' + error.stack)
         }
@@ -42,95 +43,22 @@ async function getDb(id) {
 }
 
 async function getDataDay(day) {
-    switch(day) {
-        case "Sunday":
-            const sunday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 1;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
+    try {
+        if (day === '') {
+	    day = '2024-01-01'
+	}
+        const sunday = await new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM TrailUserData WHERE date = \'${day}\';`, (error, results, fields) => {
+            if (error) {
+                reject(error)
+                return
+            }
+                resolve(results)
             })
-            return sunday
-        case "Monday":
-            const monday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 2;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return monday
-        case "Tuesday":
-            const tuesday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 3;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return tuesday 
-        case "Wednesday":
-            const wednesday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 4;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return wednesday
-        case "Thursday":
-            const thursday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 5;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return thursday   
-        case "Friday":
-            const friday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 6;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return friday
-        case "Saturday":
-            const saturday = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE DAYOFWEEK(current_time) = 7;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return saturday 
-        default:
-            const database = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData;`, (error, results, fields) => {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
-                    resolve(results)
-                })
-            })
-            return database    
+        })
+        return sunday
+    } catch (error) {
+	console.log(error)
     }
 }
 
@@ -149,8 +77,9 @@ async function getDataLocation(location) {
             })
             return ctb
         case "Murdock":
+	    const murdockCanalTrail = '\"Murdock Canal Trail\"'
             const murdock = await new Promise((resolve, reject) => {
-                connection.query(`SELECT * FROM TrailUserData WHERE device_location = Murdock;`, (error, results, fields) => {
+                connection.query(`SELECT * FROM TrailUserData WHERE device_location = ${murdockCanalTrail};`, (error, results, fields) => {
                     if (error) {
                         reject(error)
                         return

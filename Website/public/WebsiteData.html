@@ -45,17 +45,8 @@
       <button onclick="filterLocation()" type="button" class="btn" style="background-color: #cede00; margin-left: 5px;">Filter By Location</button>
       <div style="display: flex; justify-content: center; margin-bottom: 5px;">  
         <div class="input-group mb-3" style="margin-top: 5px; margin-right: 5px;">
-          <label style="background-color: #d2b48c; margin-left: 5px;" class="input-group-text" for="inputGroupSelect01">Day</label>
-          <select class="form-select" id="day-dropdown">
-            <option selected>Choose...</option>
-            <option value="Sunday">Sunday</option>
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-          </select>
+          <span style="background-color: #d2b48c; margin-left: 5px;" class="input-group-text" id="inputGroup-sizing-default">Day</span>
+          <input id="day-dropdown" type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         </div>
       </div>
       <button onclick="filterDay()" type="button" class="btn" style="background-color: #cede00; margin-left: 5px; margin-bottom: 5px;">Filter By Day</button>

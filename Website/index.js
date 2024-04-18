@@ -19,7 +19,7 @@ const restrictIP = (req, res, next) => {
 }
 
 // The service port may be set on the command line
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const port = process.argv.length > 2 ? process.argv[2] : 4945;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
@@ -114,7 +114,6 @@ apiRouter.get('/filter/day', async (req, res) => {
     const param = querystring.parse(req_url.searchParams.toString())
     const day = param.day
     const data_based_day = await db.getDataDay(day)
-    console.log(data_based_day)
     if (data_based_day) {
         res.status(200)
         res.send(data_based_day)

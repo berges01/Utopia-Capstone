@@ -18,37 +18,42 @@ function removeTableElements() {
 function displayDB(historical_database) {
     // Remove exising elements in table if there
     removeTableElements()
-    console.log(historical_database)
     const tableElement = document.getElementById('historical-data')
     const thead = document.createElement('thead')
     const row = document.createElement('tr')
     const locationColumn = document.createElement('th')
-    const timeColumn = document.createElement('th')
+    const dateColumn = document.createElement('th')
     const numPeopleColumn = document.createElement('th')
+    const timeColumn = document.createElement('th')
     const tbody = document.createElement('tbody')
     locationColumn.textContent = 'Location'
-    timeColumn.textContent = 'Time'
+    dateColumn.textContent = 'Date'
     numPeopleColumn.textContent = 'Number of People'
+    timeColumn.textContent = 'Time'
     tableElement.appendChild(thead)
     tableElement.appendChild(tbody)
     thead.appendChild(row)
     row.appendChild(locationColumn)
-    row.appendChild(timeColumn)
+    row.appendChild(dateColumn)
     row.appendChild(numPeopleColumn)
+    row.appendChild(timeColumn)
 
     for (const [i, entry] of historical_database.entries()) {
         const locationEl = document.createElement('td')
-        const timeEl = document.createElement('td')
+        const dateEl = document.createElement('td')
         const countEl = document.createElement('td')
+        const timeEl = document.createElement('td')
         
         locationEl.textContent = entry.device_location
-        timeEl.textContent = new Date(entry.current_time).toLocaleString()
+        dateEl.textContent = entry.date.substring(0,10)
         countEl.textContent = entry.people_count
+        timeEl.textContent = entry.time
         
         const rowEl = document.createElement('tr')
         rowEl.appendChild(locationEl)
-        rowEl.appendChild(timeEl)
+        rowEl.appendChild(dateEl)
         rowEl.appendChild(countEl)
+        rowEl.appendChild(timeEl)
         rowEl.setAttribute('class', 'table-light')
 
         tbody.appendChild(rowEl)
